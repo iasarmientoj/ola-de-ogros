@@ -330,6 +330,28 @@ public class FirstPersonController : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    /// <summary>
+    /// Teletransporta al jugador a una posición y rotación específicas reseteando su velocidad y CharacterController.
+    /// </summary>
+    public void TeleportTo(Vector3 targetPosition, Quaternion targetRotation)
+    {
+        velocity = Vector3.zero;
+        impactVelocity = Vector3.zero;
+
+        if (controller != null)
+        {
+            controller.enabled = false;
+            transform.position = targetPosition;
+            transform.rotation = targetRotation;
+            controller.enabled = true;
+        }
+        else
+        {
+            transform.position = targetPosition;
+            transform.rotation = targetRotation;
+        }
+    }
+
     void HandleRotation()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
