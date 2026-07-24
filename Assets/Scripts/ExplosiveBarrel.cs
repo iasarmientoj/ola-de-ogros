@@ -21,6 +21,9 @@ public class ExplosiveBarrel : MonoBehaviour
     public AudioClip explosionSound;
     [Range(0f, 1f)] public float explosionVolume = 1.0f;
 
+    [Header("Events")]
+    public static System.Action<ExplosiveBarrel> OnBarrelDestroyed;
+
     private int currentHits = 0;
     private bool hasExploded = false;
 
@@ -66,6 +69,8 @@ public class ExplosiveBarrel : MonoBehaviour
     {
         if (hasExploded) return;
         hasExploded = true;
+
+        OnBarrelDestroyed?.Invoke(this);
 
         Debug.Log($"Barril {gameObject.name}: ¡Tercer disparo! EXPLOSIÓN.");
 
